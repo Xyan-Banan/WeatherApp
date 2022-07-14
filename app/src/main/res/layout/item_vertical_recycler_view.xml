@@ -3,19 +3,217 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp"
+    android:layout_marginBottom="7dp"
+
+    android:background="@drawable/forecast_background">
+
+    <ImageView
+        android:id="@+id/iconIV"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp"
+        android:contentDescription="@string/weather_icon_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_launcher_foreground" />
 
     <TextView
-        android:id="@+id/forecastTV"
+        android:id="@+id/descriptionTV"
+        style="@style/white_shadowed_black_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:background="@color/design_default_color_primary"
-        android:padding="5dp"
-        android:textColor="@color/design_default_color_on_primary"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:maxWidth="110dp"
+        android:textAlignment="center"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/iconIV"
+        app:layout_constraintStart_toStartOf="@id/iconIV"
+        app:layout_constraintTop_toBottomOf="@id/iconIV"
+        tools:text="Ясно" />
+
+    <TextView
+        android:id="@+id/timeTV"
+        style="@style/white_shadowed_black_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Ясно" />
+        tools:text="12:00 - 15:00" />
+
+    <TextView
+        android:id="@+id/tempAvgTV"
+        style="@style/white_shadowed_black_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iconIV"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timeTV"
+        tools:text="27°C" />
+
+    <TextView
+        android:id="@+id/feelsLikeLabel"
+        style="@style/white_shadowed_black_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="@string/feels_like_label"
+        app:layout_constraintBottom_toTopOf="@id/maxTempLabel"
+        app:layout_constraintStart_toEndOf="@+id/tempAvgTV"
+        app:layout_constraintTop_toTopOf="@+id/tempAvgTV"
+        app:layout_constraintVertical_chainStyle="spread_inside" />
+
+    <TextView
+        android:id="@+id/maxTempLabel"
+        style="@style/white_shadowed_black_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/maximum_label"
+        app:layout_constraintBottom_toTopOf="@+id/minTempLabel"
+        app:layout_constraintStart_toStartOf="@+id/feelsLikeLabel"
+        app:layout_constraintTop_toBottomOf="@+id/feelsLikeLabel" />
+
+    <TextView
+        android:id="@+id/minTempLabel"
+        style="@style/white_shadowed_black_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/minimum_label"
+        app:layout_constraintBottom_toBottomOf="@+id/tempAvgTV"
+        app:layout_constraintStart_toStartOf="@+id/feelsLikeLabel"
+        app:layout_constraintTop_toBottomOf="@id/maxTempLabel" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/temp_barrier"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:barrierDirection="end"
+        app:constraint_referenced_ids="feelsLikeLabel, maxTempLabel, minTempLabel" />
+
+    <TextView
+        android:id="@+id/tempFeelsLikeTV"
+        style="@style/white_shadowed_black_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        app:layout_constraintBaseline_toBaselineOf="@id/feelsLikeLabel"
+        app:layout_constraintStart_toEndOf="@id/temp_barrier"
+        tools:text="30°C" />
+
+    <TextView
+        android:id="@+id/tempMaxTV"
+        style="@style/white_shadowed_black_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        app:layout_constraintBaseline_toBaselineOf="@id/maxTempLabel"
+        app:layout_constraintStart_toEndOf="@id/temp_barrier"
+        tools:text="35°C" />
+
+    <TextView
+        android:id="@+id/tempMinTV"
+        style="@style/white_shadowed_black_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        app:layout_constraintBaseline_toBaselineOf="@id/minTempLabel"
+        app:layout_constraintStart_toEndOf="@id/temp_barrier"
+        tools:text="23°C" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/temp_barrier_end"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:barrierDirection="end"
+        app:constraint_referenced_ids="tempFeelsLikeTV, tempMaxTV, tempMinTV" />
+
+    <ImageView
+        android:id="@+id/precipitations_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/precipitation_icon_description"
+        android:src="@drawable/ic_precipitation_24"
+        app:layout_constraintBottom_toBottomOf="@+id/humidityTV"
+        app:layout_constraintStart_toStartOf="@+id/tempAvgTV"
+        app:layout_constraintTop_toTopOf="@+id/humidityTV"
+        tools:ignore="true" />
+
+    <TextView
+        android:id="@+id/humidityTV"
+        style="@style/white_shadowed_black_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toBaselineOf="@id/descriptionTV"
+        app:layout_constraintEnd_toStartOf="@id/windSpeedTV"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toEndOf="@+id/precipitations_icon"
+        tools:text="50%" />
+
+    <ImageView
+        android:id="@+id/wind_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:contentDescription="@string/wind_icon_description"
+        android:src="@drawable/ic_wind_24"
+        app:layout_constraintEnd_toStartOf="@id/windSpeedTV"
+        app:layout_constraintTop_toTopOf="@+id/precipitations_icon"
+        tools:ignore="true" />
+
+    <TextView
+        android:id="@+id/windSpeedTV"
+        style="@style/white_shadowed_black_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/wind_icon"
+        app:layout_constraintEnd_toStartOf="@id/pressureTV"
+        app:layout_constraintStart_toEndOf="@+id/humidityTV"
+        app:layout_constraintTop_toTopOf="@+id/wind_icon"
+        tools:text="11м/с" />
+
+    <ImageView
+        android:id="@+id/pressure_icon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="15dp"
+        android:contentDescription="@string/wind_icon_description"
+        android:src="@drawable/ic_pressure_96"
+        app:layout_constraintBottom_toBottomOf="@+id/precipitations_icon"
+        app:layout_constraintEnd_toStartOf="@id/pressureTV"
+        tools:ignore="true" />
+
+    <TextView
+        android:id="@+id/pressureTV"
+        style="@style/white_shadowed_black_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toBaselineOf="@id/windSpeedTV"
+        app:layout_constraintEnd_toStartOf="@+id/temp_barrier_end"
+        app:layout_constraintStart_toEndOf="@+id/windSpeedTV"
+        app:layout_constraintWidth_max="wrap"
+        tools:text="750мм рт.ст." />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/white"
+        android:indeterminateTintMode="src_atop"
+        app:layout_constraintBottom_toBottomOf="@+id/iconIV"
+        app:layout_constraintEnd_toEndOf="@+id/iconIV"
+        app:layout_constraintStart_toStartOf="@+id/iconIV"
+        app:layout_constraintTop_toTopOf="@+id/iconIV" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

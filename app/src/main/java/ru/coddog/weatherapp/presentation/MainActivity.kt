@@ -35,7 +35,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 Log.d(TAG, "onCreate: ${it.joinToString("\n")}")
-                adapter.setData(it[0].list)
+                val list = it.flatMap { it.list }
+                adapter.setData(list)
             }) {
                 Log.e(TAG, "onCreate: ${it.message}")
             }
