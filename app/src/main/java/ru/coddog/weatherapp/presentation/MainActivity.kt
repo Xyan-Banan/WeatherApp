@@ -26,17 +26,15 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         val component = (application as WeatherApplication).component
         component.inject(this)
 
-        val adapter = DailyForecastRvAdapter()
-        binding.forecastsRV.adapter = adapter
-        binding.forecastsRV.layoutManager = LinearLayoutManager(this)
+        val adapter = ViewPagerAdapter()
+        binding.viewPager.adapter = adapter
 
         repository.getForecastByCity("Saint Petersburg")
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 Log.d(TAG, "onCreate: ${it.joinToString("\n")}")
-                val list = it.flatMap { it.list }
-                adapter.setData(list)
+                adapter.setData(it)
             }) {
                 Log.e(TAG, "onCreate: ${it.message}")
             }

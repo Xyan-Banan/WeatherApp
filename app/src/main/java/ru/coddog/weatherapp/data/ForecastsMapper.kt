@@ -21,7 +21,7 @@ object ForecastsMapper {
                 val dateTime = LocalDateTime.ofInstant(
                     Instant.ofEpochSecond(it.timestamp),
                     TimeZone.getDefault().toZoneId()
-                ).plusSeconds(timeZone.toLong())
+                )
                 dateTime.toLocalDate() to toForecastEntity(it, dateTime.toLocalTime())
             }
             .groupBy(
