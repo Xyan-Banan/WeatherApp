@@ -33,7 +33,7 @@ abstract class ApiModule {
             OkHttpClient.Builder()
                 .addInterceptor(
                     HttpLoggingInterceptor()
-                        .setLevel(HttpLoggingInterceptor.Level.BODY)
+                        .setLevel(HttpLoggingInterceptor.Level.BASIC)
                 )
                 .build()
 

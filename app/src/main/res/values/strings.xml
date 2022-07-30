@@ -6,4 +6,5 @@
     <string name="weather_icon_description">Иконка погоды</string>
     <string name="precipitation_icon_description">Иконка осадков</string>
     <string name="wind_icon_description">Иконка ветра</string>
+    <string name="weather_in">Погода в:</string>
 </resources>

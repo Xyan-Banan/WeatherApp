@@ -19,6 +19,7 @@ class RepositoryImpl @Inject constructor(
     }
 
     override fun getForecastByCoordinates(lat: Double, lon: Double): Single<List<DailyForecast>> {
-        TODO("Not yet implemented")
+        return remoteDataSource.getForecastByCoordinates(lat, lon)
+            .map { ForecastsMapper.toDailyForecasts(it) }
     }
 }

@@ -10,5 +10,9 @@ import ru.coddog.weatherapp.di.AppComponent
 import ru.coddog.weatherapp.di.DaggerAppComponent
 
 class WeatherApplication : Application() {
-    val component: AppComponent = DaggerAppComponent.create()
+    lateinit var component: AppComponent
+
+    override fun onCreate() {
+        component = DaggerAppComponent.factory().create(this)
+    }
 }

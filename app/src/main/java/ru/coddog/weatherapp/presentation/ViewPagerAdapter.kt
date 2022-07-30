@@ -34,7 +34,7 @@ class ViewPagerAdapter() : RecyclerView.Adapter<ViewPagerAdapter.ViewPagerViewHo
     override fun getItemCount(): Int = data.size
 
     inner class ViewPagerViewHolder(itemView: View, context: Context) : RecyclerView.ViewHolder(itemView) {
-        val binding = ItemViewPagerBinding.bind(itemView)
+        private val binding = ItemViewPagerBinding.bind(itemView)
         val adapter = DailyForecastRvAdapter()
 
         init {
